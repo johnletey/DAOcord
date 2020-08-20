@@ -5,8 +5,19 @@ const client = new Discord.Client();
 const Arweave = require("arweave");
 const Community = require("community-js").default;
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 client.on("ready", async () => {
   console.log(`[discord] Logged in as ${client.user.tag}!`);
+
+  let cachedLength = 0;
 
   const channel = client.channels.cache.find(
     (channel) => channel.name === process.env.CHANNEL
@@ -23,25 +34,22 @@ client.on("ready", async () => {
 
   await community.setCommunityTx(process.env.COMMUNITY);
 
-  let votes = (await community.getState()).votes;
+  while (true) {
+    let votes = (await community.getState()).votes;
 
-  for (const vote of votes) {
-    channel.send(
-      new Discord.MessageEmbed()
-        .setTitle(":new:  New Vote")
-        .setDescription(vote.note)
-        .addFields(
-          { name: "Yays", value: vote.yays, inline: true },
-          { name: "Nays", value: vote.nays, inline: true }
-        )
-    );
-    for (const voter of vote.voted) {
-      channel.send(
-        new Discord.MessageEmbed()
-          .setTitle(":information_source:  `" + voter + "` voted")
-          .setDescription(vote.note)
-      );
+    if (votes.length > cachedLength) {
+      for (let i = cachedLength; i < votes.length; i++) {
+        const vote = votes[i];
+        channel.send(
+          new Discord.MessageEmbed()
+            .setTitle(":new:  New Vote")
+            .setDescription(vote.note)
+        );
+      }
+      cachedLength = votes.length;
     }
+
+    sleep(1000 * 60)
   }
 });
 
