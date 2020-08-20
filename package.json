@@ -1,0 +1,14 @@
+{
+  "name": "daocord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "John Letey <johnletey@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
