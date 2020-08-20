@@ -8,7 +8,7 @@ const Community = require("community-js").default;
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
+    if (new Date().getTime() - start > milliseconds) {
       break;
     }
   }
@@ -49,7 +49,7 @@ client.on("ready", async () => {
       cachedLength = votes.length;
     }
 
-    sleep(1000 * 60)
+    sleep(1000 * 60);
   }
 });
 
