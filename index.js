@@ -24,7 +24,25 @@ client.on("ready", async () => {
   await community.setCommunityTx(process.env.COMMUNITY);
 
   let votes = (await community.getState()).votes;
-  channel.send("```\n" + JSON.stringify(votes, null, 2) + "\n```");
+
+  for (const vote of votes) {
+    channel.send(
+      new Discord.MessageEmbed()
+        .setTitle(":new:  New Vote")
+        .setDescription(vote.note)
+        .addFields(
+          { name: "Yays", value: vote.yays, inline: true },
+          { name: "Nays", value: vote.nays, inline: true }
+        )
+    );
+    for (const voter of vote.voted) {
+      channel.send(
+        new Discord.MessageEmbed()
+          .setTitle(":information_source:  `" + voter + "` voted")
+          .setDescription(vote.note)
+      );
+    }
+  }
 });
 
 client.login(process.env.BOT_TOKEN);
