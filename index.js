@@ -22,7 +22,7 @@ client.on("ready", async () => {
 
   await community.setCommunityTx(process.env.COMMUNITY);
 
-  setInterval(async () => await checkVotes(community, cachedLength, channel), 1000 * 60);
+  setInterval(async () => await checkVotes(channel), 1000 * 60);
 });
 
 async function checkVotes(channel) {
@@ -34,6 +34,7 @@ async function checkVotes(channel) {
       await channel.send(
         new Discord.MessageEmbed()
           .setTitle(":pencil:  New Vote!")
+          .setURL("https://community.xyz/#" + process.env.COMMUNITY + "/votes")
           .setDescription(vote.note)
       );
     }
