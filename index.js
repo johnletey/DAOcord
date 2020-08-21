@@ -31,11 +31,25 @@ async function checkVotes(channel) {
   if (votes.length > cachedLength) {
     for (let i = cachedLength; i < votes.length; i++) {
       const vote = votes[i];
+      console.log(vote);
       await channel.send(
         new Discord.MessageEmbed()
-          .setTitle(":pencil:  New Vote!")
+          .setTitle(":pencil:  New Vote Proposal!")
           .setURL("https://community.xyz/#" + process.env.COMMUNITY + "/votes")
-          .setDescription(vote.note + "\n`" + vote.type + "`")
+          .setAuthor("Verto Community DAO")
+          .setThumbnail('https://pbs.twimg.com/profile_images/1291518575610650624/LTHwLCnC_400x400.png')
+          .addFields(
+            {
+              name: "Memo",
+              value: vote.note
+            },
+            {
+              name: "Type",
+              value: vote.type
+            }
+          )
+          .setTimestamp()
+          .setFooter("Verto Exchange", "https://pbs.twimg.com/profile_images/1295773979542786049/ounPaqbM_400x400.jpg")
       );
     }
     cachedLength = votes.length;
