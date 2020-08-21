@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "arweave": "^1.9.1",
-    "community-js": "^1.0.3",
+    "community-js": "^1.0.6",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0"
   }
