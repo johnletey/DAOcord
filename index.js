@@ -34,23 +34,24 @@ client.on("ready", async () => {
 
   await community.setCommunityTx(process.env.COMMUNITY);
 
-  while (true) {
-    let votes = (await community.getState()).votes;
-
-    if (votes.length > cachedLength) {
-      for (let i = cachedLength; i < votes.length; i++) {
-        const vote = votes[i];
-        channel.send(
-          new Discord.MessageEmbed()
-            .setTitle(":new:  New Vote")
-            .setDescription(vote.note)
-        );
-      }
-      cachedLength = votes.length;
-    }
-
-    sleep(1000 * 60);
-  }
+  setInterval(await checkVotes(community, cachedLength, channel), 1000 * 60);
 });
+
+async function checkVotes(community, cachedLength, channel) {
+  let votes = (await community.getState()).votes;
+  console.log(votes);
+
+  if (votes.length > cachedLength) {
+    for (let i = cachedLength; i < votes.length; i++) {
+      const vote = votes[i];
+      await channel.send(
+        new Discord.MessageEmbed()
+          .setTitle(":new:  New Vote")
+          .setDescription(vote.note)
+      );
+    }
+    cachedLength = votes.length;
+  }
+}
 
 client.login(process.env.BOT_TOKEN);
