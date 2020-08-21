@@ -5,15 +5,6 @@ const client = new Discord.Client();
 const Arweave = require("arweave");
 const Community = require("community-js").default;
 
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if (new Date().getTime() - start > milliseconds) {
-      break;
-    }
-  }
-}
-
 client.on("ready", async () => {
   console.log(`[discord] Logged in as ${client.user.tag}!`);
 
