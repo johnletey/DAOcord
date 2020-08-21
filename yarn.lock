@@ -88,6 +88,11 @@ bignumber.js@^8.1.1:
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-8.1.1.tgz#4b072ae5aea9c20f6730e4e5d529df1271c4d885"
   integrity sha512-QD46ppGintwPGuL1KqmwhR0O+N2cZUg8JG/VzwI2e28sM9TqHjQB10lI4QAaMHVbLzwVLLAwEglpKPViWX+5NQ==
 
+bignumber.js@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.0.tgz#805880f84a329b5eac6e7cb6f8274b6d82bdf075"
+  integrity sha512-t/OYhhJ2SD+YGBQcjY8GzzDHEk9f3nerxjtfa6tlMXfe7frs/WozhvCNoGvpM0P3bNf3Gq5ZRMlGr5f3r4/N8A==
+
 bn.js@^4.0.0:
   version "4.11.9"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.9.tgz#26d556829458f9d1e81fc48952493d0ba3507828"
@@ -126,13 +131,13 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-community-js@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/community-js/-/community-js-1.0.3.tgz#32df2e5a68c8038ad28f57a2e5f4bdf4044da1f5"
-  integrity sha512-c2uQFZvZhU9K6K8An+yOTazSXm9Qg7N0C5jFLZgFs3k2RoiJ5fvs/NQRamPCS1AACUj0+u/luYCAp2rSZCFFXQ==
+community-js@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/community-js/-/community-js-1.0.6.tgz#b9e6fdeb1ada5acaccde0484dc69d5aa0ee8bee4"
+  integrity sha512-1HqQWTDw3ojfX11Fe/+saxrjX4JUR7uRS4Fil9O7WmN+f1u6gj+b87NEDZa/JvVFQLIg7J5YKb25h24NreqCDg==
   dependencies:
     arweave "^1.9.1"
-    smartweave "https://arweave.net/AM-u4X2po-3Tx7fma3lRonCfLwrjI42IALwDL_YFXBs"
+    smartweave "https://arweave.net/dvJ-z54lonYNfyz0xoicTax3NhbHvB0LqmS90zLBE8c"
     tiny-worker "^2.3.0"
 
 debug@4.1.1:
@@ -324,11 +329,12 @@ setimmediate@^1.0.5:
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
   integrity sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU=
 
-"smartweave@https://arweave.net/AM-u4X2po-3Tx7fma3lRonCfLwrjI42IALwDL_YFXBs":
-  version "0.3.2"
-  resolved "https://arweave.net/AM-u4X2po-3Tx7fma3lRonCfLwrjI42IALwDL_YFXBs#b0dfab671e01f51a0f6fcd60d7672203c79b4c2d"
+"smartweave@https://arweave.net/dvJ-z54lonYNfyz0xoicTax3NhbHvB0LqmS90zLBE8c":
+  version "0.3.3"
+  resolved "https://arweave.net/dvJ-z54lonYNfyz0xoicTax3NhbHvB0LqmS90zLBE8c#72f255fd97aa3a2702925ca14cd74d5a34253d4b"
   dependencies:
     arweave "^1.7.1"
+    bignumber.js "^9.0.0"
     promises-tho "^1.1.0"
     yargs "^15.3.1"
 
