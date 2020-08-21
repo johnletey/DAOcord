@@ -35,7 +35,7 @@ async function checkVotes(channel) {
         new Discord.MessageEmbed()
           .setTitle(":pencil:  New Vote!")
           .setURL("https://community.xyz/#" + process.env.COMMUNITY + "/votes")
-          .setDescription(vote.note)
+          .setDescription(vote.note + "\n`" + vote.type + "`")
       );
     }
     cachedLength = votes.length;
