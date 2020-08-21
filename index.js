@@ -34,7 +34,7 @@ client.on("ready", async () => {
 
   await community.setCommunityTx(process.env.COMMUNITY);
 
-  setInterval(await checkVotes(community, cachedLength, channel), 1000 * 60);
+  setInterval(async () => await checkVotes(community, cachedLength, channel), 1000 * 60);
 });
 
 async function checkVotes(community, cachedLength, channel) {
