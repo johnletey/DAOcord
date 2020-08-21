@@ -46,7 +46,7 @@ async function checkVotes(community, cachedLength, channel) {
       const vote = votes[i];
       await channel.send(
         new Discord.MessageEmbed()
-          .setTitle(":new:  New Vote")
+          .setTitle(":pencil:  New Vote!")
           .setDescription(vote.note)
       );
     }
