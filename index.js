@@ -3,53 +3,61 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 const Arweave = require("arweave");
-const Community = require("community-js").default;
+const { getContract } = require("cacheweave");
 
 let cachedLength = 0;
-let community = new Community(
-  new Arweave({
-    host: "arweave.net",
-    port: 443,
-    protocol: "https",
-    timeout: 20000,
-  })
-);
+let firstRun = true;
+
+const arweave = new Arweave({
+  host: "arweave.net",
+  port: 443,
+  protocol: "https",
+});
 
 client.on("ready", async () => {
   const channel = client.channels.cache.find(
     (channel) => channel.name === process.env.CHANNEL
   );
 
-  await community.setCommunityTx(process.env.COMMUNITY);
-
-  setInterval(async () => await checkVotes(channel), 1000 * 60);
+  setInterval(async () => await checkVotes(channel), 1000);
 });
 
 async function checkVotes(channel) {
-  let votes = (await community.getState(false)).votes;
+  const state = await getContract(arweave, process.env.COMMUNITY);
+  let votes = state.votes;
+
+  if (firstRun) {
+    cachedLength = votes.length;
+    firstRun = false;
+  }
 
   if (votes.length > cachedLength) {
     for (let i = cachedLength; i < votes.length; i++) {
       const vote = votes[i];
-      console.log(vote);
       await channel.send(
         new Discord.MessageEmbed()
           .setTitle(":pencil:  New Vote Proposal!")
           .setURL("https://community.xyz/#" + process.env.COMMUNITY + "/votes")
-          .setAuthor("Verto Community DAO")
-          .setThumbnail('https://pbs.twimg.com/profile_images/1291518575610650624/LTHwLCnC_400x400.png')
+          .setAuthor(`${state.name} Community DAO`)
+          .setThumbnail(
+            "https://pbs.twimg.com/profile_images/1309140050429575169/IVkspquc_400x400.jpg"
+          )
           .addFields(
             {
               name: "Memo",
-              value: vote.note
+              value: vote.note,
             },
             {
               name: "Type",
-              value: vote.type
+              value: vote.type,
             }
           )
           .setTimestamp()
-          .setFooter("Verto Exchange", "https://pbs.twimg.com/profile_images/1295773979542786049/ounPaqbM_400x400.jpg")
+          .setFooter(
+            state.name,
+            // TODO(@johnletey): Grab Community logo from cXYZ
+            process.env.COMMUNITY_IMG
+          )
       );
     }
     cachedLength = votes.length;

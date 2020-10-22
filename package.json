@@ -2,16 +2,20 @@
   "name": "daocord",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ."
-  },
   "author": "John Letey <johnletey@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "fmt": "prettier --write ."
+  },
+  "main": "index.js",
   "dependencies": {
     "arweave": "^1.9.1",
-    "community-js": "^1.0.6",
+    "cacheweave": "^2.0.0",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
   }
 }
