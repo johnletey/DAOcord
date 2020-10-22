@@ -24,7 +24,10 @@ client.on("ready", async () => {
 
 async function checkVotes(channel) {
   const state = await getContract(arweave, process.env.COMMUNITY);
-  let votes = state.votes;
+  const votes = state.votes;
+  const communityLogo = state.settings.find(
+    (setting) => setting[0] === "communityLogo"
+  );
 
   if (firstRun) {
     cachedLength = votes.length;
@@ -40,7 +43,7 @@ async function checkVotes(channel) {
           .setURL("https://community.xyz/#" + process.env.COMMUNITY + "/votes")
           .setAuthor(`${state.name} Community DAO`)
           .setThumbnail(
-            "https://pbs.twimg.com/profile_images/1309140050429575169/IVkspquc_400x400.jpg"
+            "https://arweave.net/DPUBd0RxE1itIfDcbuI2TroXautcvWQq41qKMM-QDrY"
           )
           .addFields(
             {
@@ -55,8 +58,9 @@ async function checkVotes(channel) {
           .setTimestamp()
           .setFooter(
             state.name,
-            // TODO(@johnletey): Grab Community logo from cXYZ
-            process.env.COMMUNITY_IMG
+            communityLogo
+              ? `https://arweave.net/${communityLogo[1]}`
+              : process.env.COMMUNITY_IMG
           )
       );
     }
